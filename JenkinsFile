@@ -1,0 +1,41 @@
+pipeline {
+   agent any
+
+   environment {
+      AWS_DEFAULT_REGION = 'eu-west-1'
+      branchName = "${env.GIT_BRANCH}"
+   }
+   stages {
+      stage('Checkout Code') {
+         steps {
+            checkout scm
+         }
+      }
+      stage('Cust Stage 01') {
+         when {
+            branch 'main'
+         }
+         steps {
+            script {
+               sh 'echo this is the master branch'
+               sh "echo 'branchName: ${branchName}'"
+            }
+         }
+      }
+      stage('Cust Stage 02') {
+         when not {
+            branch 'main'
+         }
+         steps {
+            script {
+               sh 'echo this is a non master branch '
+               sh "echo 'Pulling...' + env.BRANCH_NAME"
+            }
+         }
+      }
+      post {
+         always {
+            cleanWs()
+         }
+      }
+   }
