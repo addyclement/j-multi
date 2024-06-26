@@ -18,7 +18,6 @@ pipeline {
          steps {
             script {
                sh 'echo this is the master branch'
-               sh "echo 'branchName: ${branchName}'"
             }
          }
       }
@@ -29,7 +28,6 @@ pipeline {
          steps {
             script {
                sh 'echo this is a non master branch '
-               sh "echo 'Pulling...' + env.BRANCH_NAME"
             }
          }
       }
@@ -39,3 +37,4 @@ pipeline {
          }
       }
    }
+}
