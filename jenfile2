@@ -8,6 +8,11 @@ pipeline {
             }
         }
         stage('Test') {
+            when {
+                not {
+                branch 'main'
+                }
+            }
             steps {
                 echo "Testing branch ${env.BRANCH_NAME}"
                 // Add your test steps here
